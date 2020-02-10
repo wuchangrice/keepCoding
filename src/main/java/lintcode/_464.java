@@ -3,16 +3,16 @@ package lintcode;
 public class _464 {
     public void sortIntegers2(int[] A) {
         // write your code here
-        helper(A, 0, A.length-1);
+        quickSort(A, 0, A.length-1);
     }
-
-    private void helper(int[] nums, int left, int right){
+    //quick sort
+    public void quickSort(int[] nums, int left, int right){
         if(left >= right){
             return;
         }
         int partition = partition(nums,left, right);
-        helper(nums, left, partition-1);
-        helper(nums, partition+1, right);
+        quickSort(nums, left, partition-1);
+        quickSort(nums, partition+1, right);
     }
 
     private int partition(int[] nums, int left, int right){
@@ -29,5 +29,43 @@ public class _464 {
         }
         nums[left] = pivot;
         return left;
+    }
+
+    //merge sort
+    public void merge(int[] nums, int[] temp, int left, int mid, int right){
+        for(int i=left; i<=right; i++){
+            temp[i] = nums[i];
+        }
+        int i=left, j=mid, k = left;
+        for(; i<mid && j<=right;){
+            if(temp[i] < temp[j]){ //这里的符号直接关系到排序的稳定性
+                nums[k++] = temp[i++];
+            }else{
+                nums[k++] = temp[j++];
+            }
+        }
+        while(i<mid){
+            nums[k++] = temp[i++];
+        }
+        while(j<=right){
+            nums[k++] = temp[j++];
+        }
+    }
+
+    public void merge_sort(int[] nums,int[] temp, int left, int right){
+        if(left>=right){
+            return;
+        }
+        int mid = left+(right-left)/2;
+        merge_sort(nums, temp, left, mid);
+        merge_sort(nums, temp, mid+1, right);
+        merge(nums, temp , left, mid+1 ,right);
+    }
+
+    public static void main(String[] args) {
+        int[] nums = new int[]{4,5,1,2,3};
+        int[] temp = new int[nums.length];
+        new _464().merge_sort(nums, temp, 0, nums.length -1);
+        System.out.println(nums);
     }
 }
