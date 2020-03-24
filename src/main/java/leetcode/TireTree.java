@@ -1,7 +1,6 @@
 package leetcode;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class TireTree {
     class TreeNode {
@@ -35,6 +34,7 @@ public class TireTree {
             curChild = cur.child;
         }
         cur.isWord=true;
+        Set<String> set = new HashSet<>(new ArrayList<>());
     }
 
     public boolean searchWord(String word){
