@@ -6,6 +6,7 @@ import java.util.List;
  * Created by oukinsei on 2020/4/27.
  */
 public class _1424 {
+    //todo
     public int[] findDiagonalOrder(List<List<Integer>> nums) { //对角线式打印数字
         int total = 0, index = 0;
         for(List<Integer> list : nums){
