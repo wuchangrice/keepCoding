@@ -1,5 +1,7 @@
 package leetcode;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,31 +10,37 @@ import java.util.Map;
  */
 public class Main {
     public static void main(String[] args) {
-        Map<String, String> test = new HashMap<>();
-        test.put("1","1");
-        boolean loop = true;
-        while(loop){
-            Map<String,String> test1 = new HashMap<>();
-            test1.put("2","1");
-            test = test1;
-            loop = false;
-        }
-        System.out.println("debug" + test);
-        String aa = "aaaaaaaaa";
-        int K = 4;
-        StringBuffer sb = new StringBuffer();
-        int times = aa.length()/K;
-        int remain = aa.length() % K;
-        if(remain > 0){
-            sb.append(aa.substring(0, remain));
-            sb.append("-");
-        }
-        for(int i = 0; i < times; i++){
-            sb.append(aa.substring(remain+i*K, remain+i*K+K));
-            sb.append("-");
-        }
-        sb.setLength(sb.length()-1);
-        System.out.println(sb.toString());
-        String.valueOf("11").equals("aaaaa");
+        new Main().longestSubarray(new int[]{4,2,2,2,4,4,2,2}, 0);
     }
+    public int longestSubarray(int[] nums, int limit) {
+        Deque<Integer> max = new ArrayDeque<>();
+        Deque<Integer> min = new ArrayDeque<>();
+        int left = 0, right = 0, result = 0;
+        while(right < nums.length){
+            while(!max.isEmpty() && max.peekLast() < nums[right]){
+                max.pollLast();
+            }
+            max.offerLast(nums[right]);
+            while(!min.isEmpty() && min.peekLast() > nums[right]){
+                min.pollLast();
+            }
+            min.offerLast(nums[right]);
+            if(max.peekFirst() - min.peekFirst() <= limit){
+                result = Math.max(result, right-left+1);
+            }else{
+                while(max.peekFirst() - min.peekFirst() > limit){
+                    if(nums[left] == max.peekFirst()){
+                        max.pollFirst();
+                    }
+                    if(nums[left] == min.peekFirst()){
+                        min.pollFirst();
+                    }
+                    left++;
+                }
+            }
+            right++;
+        }
+        return result;
+    }
+
 }
