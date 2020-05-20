@@ -4,7 +4,7 @@ import java.util.*;
 
 public class _212 {
     public List<String> findWords(char[][] board, String[] words) {
-        TireTree tree = new TireTree();
+        TrieTree tree = new TrieTree();
         Set<String> result = new HashSet<>();
         for(String word : words){
             tree.insertWord(word);
@@ -19,13 +19,13 @@ public class _212 {
         return new ArrayList<>(result);
     }
 
-    private void dfs(boolean[][] helper, char[][] board, int i, int j, Set<String> result, StringBuffer sb, TireTree.TreeNode treeNode){
+    private void dfs(boolean[][] helper, char[][] board, int i, int j, Set<String> result, StringBuffer sb, TrieTree.TreeNode treeNode){
         //使用treeNode可以使用计算过程中间的结果
-        Map<Character, TireTree.TreeNode> child = treeNode.child;
+        Map<Character, TrieTree.TreeNode> child = treeNode.child;
         if(!child.containsKey(board[i][j])){
             return;
         }
-        TireTree.TreeNode cur = child.get(board[i][j]);
+        TrieTree.TreeNode cur = child.get(board[i][j]);
         int m = helper.length;
         int n = helper[0].length;
         sb.append(board[i][j]);

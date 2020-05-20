@@ -1,8 +1,8 @@
 package leetcode;
 
 import java.util.*;
-
-public class TireTree {
+//after the middle syllable of retrieval
+public class TrieTree {
     class TreeNode {
         char val;
         Map<Character, TreeNode> child = new HashMap<>();
@@ -17,7 +17,7 @@ public class TireTree {
     }
     TreeNode root;
 
-    public TireTree() {
+    public TrieTree() {
         root = new TreeNode();
     }
 
