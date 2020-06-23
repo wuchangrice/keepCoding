@@ -34,7 +34,6 @@ public class TrieTree {
             curChild = cur.child;
         }
         cur.isWord=true;
-        Set<String> set = new HashSet<>(new ArrayList<>());
     }
 
     public boolean searchWord(String word){
